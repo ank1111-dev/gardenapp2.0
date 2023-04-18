@@ -35,7 +35,7 @@ const PlantIdentification = () => {
 
     Promise.all(base64files).then((base64files) => {
       const data = {
-        api_key: "",
+        api_key: process.env.REACT_APP_PLANT_API_KEY,
         images: base64files,
         modifiers: ["crops_fast", "similar_images"],
         plant_language: "en",
