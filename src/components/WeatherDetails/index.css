@@ -1,0 +1,70 @@
+.WeatherContainer {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #9f9428 0%, #83ac7b 100%);
+  font-family: Helvetica, Arial, sans-serif;
+  color: #fff;
+  padding-top: 10px;
+  margin-bottom: 50px;
+}
+
+.IconButtonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+   
+}
+
+.IconButton {
+  color: #b6986d;
+  margin-right: 20px;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease-in-out;
+  outline: none;
+  border: none;
+}
+
+.IconButton:nth-child(2) {
+  margin-right: 20px;
+}
+
+.WeatherCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 60px;
+  border-radius: 10px;
+  background:#94945d;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  margin: 10px auto;
+  max-width: 500px;
+}
+
+.WeatherIcon {
+  width: 80px;
+  height: 80px;
+}
+
+.ErrorMessage {
+  color: red;
+}
+
+.WeatherDataContainer {
+  position: relative;
+  padding: 30px;
+  margin: auto 20px;
+}
+
+.LoaderContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.LoaderText {
+  margin-top: 10px;
+}

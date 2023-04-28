@@ -1,208 +1,150 @@
-import { useEffect, useState, useCallback } from "react";
-import { useParams } from "react-router-dom";
-import { CircularProgress, Typography, styled, Box } from "@mui/material";
-import PlantSuggestions from "../PlantSuggestions";
-import { data } from "../PlantData";
+import { useState, useEffect } from "react";
+import { Typography, IconButton, CircularProgress, Grid, Box } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import { useParams, useNavigate } from "react-router-dom";
+import { ArrowBack as ArrowBackIcon, ArrowForward as ArrowForwardIcon } from "@mui/icons-material";
+import moment from "moment";
+import "moment-timezone";
+import ClimateZone from "../ClimateZone/index";
+import "./index.css"
 
-const Container = styled("div")({
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  padding: "20px",
-  backgroundColor: "#f0f0f0",
-});
-
-const Title = styled(Typography)({
-  fontSize: "2rem",
-  marginBottom: "10px",
-});
-
-const DateTypography = styled(Typography)({
-  fontSize: "1rem",
-  marginBottom: "20px",
-});
-
-const WeatherBox = styled("div")({
-  display: "grid",
-  gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-  gap: "20px",
-  alignItems: "center",
-  justifyItems: "center",
-  padding: "20px",
-  borderRadius: "10px",
-  boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
-  backgroundColor: "#ecebbd",
-});
-
-const WeatherIcon = styled("img")({
-  marginTop: "10px",
-  animation: `pulse 1s ease-in-out infinite`,
-  "@keyframes pulse": {
-    "0%": { transform: "scale(1)" },
-    "50%": { transform: "scale(1.2)" },
-    "100%": { transform: "scale(1)" },
-  },
-});
-
-const WeatherDetailsContainer = styled("div")({
-  margin: "20px 0",
-});
-
-const Weather = styled("div")({
-  display: "inline-flex",
-  alignItems: "center",
-});
-
-const SuggestionContainer = styled("div")({
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  marginTop: "20px",
+const ErrorMessage = styled("div")({
+  fontSize: "1.2rem",
+  fontWeight: "bold",
+  color: "#8f2e06",
+  marginBottom: "40px",
+  padding: "10px",
+  border: "1px solid red",
+  borderRadius: "3px",
+  textAlign: 'center'
 });
 
 const WeatherDetails = () => {
-  const { location } = useParams();
+  const [error, setError] = useState(null);
   const [weatherData, setWeatherData] = useState(null);
-  const [suggestedPlants, setSuggestedPlants] = useState([]);
-  const [error, setError] = useState("");
+  const { location } = useParams();
+  const [tempAndPrecip, setTempAndPrecip] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [weatherDataFetched, setWeatherDataFetched] = useState(false);
+  const [cityName, setCityName] = useState(null);
+  const navigate = useNavigate();
   const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
-  const apiUrlRegex = /^\d{4}$/;
+  const apiRegex = /^\d+$/
 
-  const apiUrl = apiUrlRegex.test(location)
+  const apiUrl = apiRegex.test(location)
     ? `https://api.openweathermap.org/data/2.5/weather?zip=${location},AU&appid=${apiKey}`
     : `https://api.openweathermap.org/data/2.5/weather?q=${location},AU&appid=${apiKey}`;
 
-  const fetchWeatherData = useCallback(() => {
-    fetch(apiUrl)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Invalid location entered!");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setWeatherData(data);
-      })
-      .catch((error) => {
-        console.error(error);
-        setError(error.message);
-      });
-  }, [apiUrl]);
+    useEffect(() => {
+      fetch(apiUrl)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.cod === 200) {
+            console.log("Timezone:", data.timezone);
+            setWeatherData({
+              temperature: Math.round(data.main.temp - 273.15),
+              humidity: data.main.humidity,
+              precipitation: data.clouds.all,
+              windSpeed: data.wind.speed,
+              windDirection: data.wind.deg,
+              weather: data.weather[0].description,
+              icon: data.weather[0].icon,
+              date: moment().utcOffset(data.timezone / 60).format('lll'),
+            });
+            setCityName(data.name);
+            setTempAndPrecip({
+              temperature: Math.round(data.main.temp - 273.15),
+              precipitation: data.clouds.all,
+            });
+            setLoading(false);
+            setWeatherDataFetched(true);
+          } else {
+            setError("The location you entered is not valid. Please enter a valid Australian postcode or city name.");
+            setLoading(false);
+            setWeatherDataFetched(false);
+          }
+        })
+        .catch(() => {
+          setError("Unable to retrieve weather data");
+          setLoading(false);
+          setWeatherDataFetched(false);
+        });
+    }, [apiUrl]);
+    
 
-  useEffect(() => {
-    if (location) {
-      fetchWeatherData();
-    }
-  }, [fetchWeatherData, location]);
-
-  const getSuggestedPlants = (climateZone) => {
-    const plants = data.filter((plant) =>
-      plant.climate_zones.includes(climateZone)
-    );
-    setSuggestedPlants(plants);
-  };
-  const getClimateZone = (temperature) => {
-    let climateZone = "";
-    if (temperature < 5) {
-      climateZone = "Alpine";
-    } else if (temperature >= 5 && temperature < 18) {
-      climateZone = "Cool Temperate";
-    } else if (temperature >= 18 && temperature < 23) {
-      climateZone = "Temperate";
-    } else if (temperature >= 23 && temperature < 30) {
-      climateZone = "Subtropical";
-    } else if (temperature >= 30) {
-      climateZone = "Tropical";
-    }
-    return climateZone;
-  };
-
-  useEffect(() => {
-    if (weatherData) {
-      const temp = Math.round(weatherData.main.temp - 273.15);
-      const climateZone = getClimateZone(temp);
-      getSuggestedPlants(climateZone);
-    }
-  }, [weatherData]);
-
-  if (error) {
-    return (
-      <Box
-        border={1}
-        p={2}
-        borderRadius={4}
-        borderColor="red"
-        bgcolor="rgba(255, 0, 0, 0.1)"
-        m={2}
-        mt={4}
-      >
-        <Typography variant="h5" align="center" color="error">
-          {error}
-        </Typography>
-      </Box>
-    );
-  }
-
-  if (!weatherData) {
-    return <CircularProgress />;
-  }
-
-  console.log(weatherData);
-  const weatherIconUrl = `https://openweathermap.org/img/w/${weatherData.weather[0].icon}.png`;
-
-  const temperature = Math.round(weatherData.main.temp - 273.15);
-  const weatherDescription = weatherData.weather[0].description;
-  const currentDate = new Date();
-  const dayOfWeek = currentDate.toLocaleDateString("en-US", {
-    weekday: "long",
-  });
-  const date = currentDate.toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
+  const { temperature, humidity, precipitation, windSpeed, windDirection, weather, icon, date  } = weatherData || {}
 
   return (
-    <Container>
-      {!weatherData && <CircularProgress />}
-      {weatherData && (
-        <>
-          <Title>
-            Weather You Like It or Not, You're Here: {weatherData.name}
-          </Title>
-          <DateTypography>
-            {date}, {dayOfWeek}
-          </DateTypography>
-          <WeatherBox>
-            <WeatherDetailsContainer>
-              <Typography variant="h6">Temperature: {temperature}°C</Typography>
-              <Weather>
-                <Typography variant="h6">
-                  Description: {weatherDescription} <span></span>
-                </Typography>
-                <WeatherIcon src={weatherIconUrl} alt="Weather Icon" />
-              </Weather>
-              <Typography variant="h6">
-                Humidity: {weatherData.main.humidity}%
-              </Typography>
-              <Typography variant="h6" sx={{ lineHeight: "3" }}>
-                Wind Speed: {weatherData.wind.speed} m/s
-              </Typography>
-            </WeatherDetailsContainer>
-          </WeatherBox>
-          {suggestedPlants.length > 0 ? (
-            <SuggestionContainer>
-              <PlantSuggestions climateZone={getClimateZone(temperature)} />
-            </SuggestionContainer>
-          ) : (
-            <Typography variant="h4">
-              No suggested plants for this climate zone.
-            </Typography>
+    <>
+      <div className="header">
+        <div className="IconButtonContainer">
+          <IconButton
+            onClick={() => navigate(-1)}
+            className="IconButton"
+          >
+            <ArrowBackIcon />
+          </IconButton>
+          <IconButton
+            onClick={() => navigate(1)}
+            className="IconButton"
+          >
+            <ArrowForwardIcon />
+          </IconButton>
+        </div>
+      </div>
+      <div className="WeatherContainer">
+        <div className="WeatherDataContainer">
+          {error && <ErrorMessage>{error}</ErrorMessage>}
+          {!error && !weatherData && loading &&  (     
+            <div className="LoaderContainer">
+              <CircularProgress size={80} />
+              <Typography variant="h5" className="LoaderText">Loading...</Typography>
+            </div>
           )}
-        </>
-      )}
-    </Container>
+        </div>
+        {weatherData && (
+          <div className="WeatherCard">
+            <Typography variant="h4">{cityName}</Typography>
+            <Typography variant="h6">{date}</Typography>
+            <Box display="flex" alignItems="center" mb={2}>
+              <img className="WeatherIcon" src={`http://openweathermap.org/img/w/${icon}.png`} alt="Iweather mage icon"/>
+              <Typography variant="h5" sx={{ ml: 1 }}>
+                {weather}
+              </Typography>
+            </Box>
+            <Grid container spacing={2}>
+              <Grid item xs={6}>
+                <Typography variant="h5">
+                  Temperature: {temperature}°C
+                </Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography variant="h5">Humidity: {humidity}%</Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography variant="h5">
+                  Precipitation: {precipitation}%
+                </Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography variant="h5">
+                  Wind: {windSpeed} km/h {windDirection}°
+                </Typography>
+              </Grid>
+            </Grid>
+          </div>
+        )}
+        {weatherDataFetched && !error && (
+          <ClimateZone
+            temperature={tempAndPrecip?.temperature}
+            precipitation={tempAndPrecip?.precipitation}
+          />
+        )}   
+      </div>
+    </>
   );
-};
+ }
+  
+  export default WeatherDetails;
+  
 
-export default WeatherDetails;
