@@ -1,0 +1,106 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;  
+  }
+  
+  .icon-button {
+  color: #b6986d;
+  background-color: #fff;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease-in-out;
+  outline: none;
+  border: none;
+  }
+  
+  .icon-button-arrow-right {
+  margin-right: 20px!important;
+  }
+  
+  .icon-button-arrow-left {
+  margin-right: 8px;
+  }
+  
+  .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #9f9428 0%, #83ac7b 100%);
+  font-family: 'Times New Roman', Times, serif;
+  margin-bottom: 40px;
+  }
+  
+  .title {
+  color: #fff;
+  margin-bottom: 20px!important;
+  text-shadow: 1px 1px 2px #000;
+  font-size: 3.5rem;
+  text-align: center;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  }
+  
+  .img {
+  max-width: 100%;
+  max-height: 500px;
+  margin : 20px 20px 20px 0 ;
+  box-shadow: 0px 1px 3px rgba(26, 231, 187, 0.3);
+  border-radius: 50px;
+  border: none;
+  }
+  
+  .subtitle {
+  color: #ebe364;
+  text-align: center;
+  margin: 10px 0 0 20px;
+  letter-spacing: 0.1em!important;
+  line-height: 2em!important;
+  text-transform: uppercase;
+  }
+  
+  .form {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 10px;
+  margin-left: auto;
+  margin-top: 30px;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+  }
+  
+  .text-field {
+  border-color: #b6986d;
+  border-radius: 20px;
+  margin-right: 10px!important;
+  flex-grow: 1;
+  font-size: 1.2rem;
+  }
+  
+  .retry-button {
+  color: #b6986d;
+  background-color: #fff;
+  border-radius: 5px;
+  margin-left: 10px!important;
+  display: none;
+  font-size: 1.2rem;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease-in-out;
+  outline: none;
+  border: none;
+  }
+  
+  .retry-button.show {
+  display: block;
+  }
+
+  .subtitle1 {
+    margin: 5px 50px 0 0 !important;
+    color: #eeec76;
+  }
