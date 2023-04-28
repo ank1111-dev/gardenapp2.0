@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from "react";
-import {
-  Card,
-  CardContent,
-  Box,
-  ButtonBase,
-  Input,
-  Typography,
-} from "@mui/material";
+import {  Card, CardContent, Box, ButtonBase, Input, Typography, } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import CameraAltIcon from "@mui/icons-material/CameraAlt";
 
 const PlantIdentification = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -19,9 +13,8 @@ const PlantIdentification = () => {
     setSelectedFiles(files);
   };
 
-  useEffect(() => {
+   useEffect(() => {
     if (selectedFiles.length === 0) return;
-
     const base64files = selectedFiles.map((file) => {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -31,7 +24,7 @@ const PlantIdentification = () => {
         };
         reader.readAsDataURL(file);
       });
-    });
+    });    
 
     Promise.all(base64files).then((base64files) => {
       const data = {
@@ -72,6 +65,34 @@ const PlantIdentification = () => {
         });
     });
   }, [selectedFiles]);
+
+  const handleTakePhoto = () => {
+    navigator.mediaDevices
+      .getUserMedia({ video: true })
+      .then((stream) => {
+        const video = document.createElement("video");
+        video.srcObject = stream;
+        video.autoplay = true;
+
+        const canvas = document.createElement("canvas");
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+
+        const context = canvas.getContext("2d");
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        canvas.toBlob((blob) => {
+          const file = new File([blob], "photo.jpg", { type: "image/jpeg" });
+          setSelectedFiles([file]);
+
+          video.srcObject.getTracks().forEach((track) => track.stop());
+        }, "image/jpeg");
+      })
+      .catch((error) => {
+        console.error("Error accessing camera", error);
+        setError(error.message || "Error accessing camera");
+      });
+  };
 
   return (
     <Box sx={{ height: "100vh" }}>
@@ -116,6 +137,23 @@ const PlantIdentification = () => {
             >
               <CloudUploadIcon sx={{ mr: "0.5rem" }} />
               Upload Image
+            </ButtonBase>
+            <Typography variant="subtitle1" sx={{ marginBottom: "10px" }}>
+              or
+            </Typography>
+            <ButtonBase
+              variant="outlined"
+              onClick={handleTakePhoto}
+              sx={{
+                color: "#b6986d",
+                border: "2px solid #b6986d",
+                borderRadius: "20px",
+                padding: "10px 20px",
+                cursor: "pointer",
+              }}
+            >
+              <CameraAltIcon sx={{ marginRight: "0.5rem" }} />
+              Take a photo
             </ButtonBase>
             {error && (
               <Typography variant="h6" sx={{ color: "#eb3911", mt: 4 }}>
