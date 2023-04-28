@@ -51,7 +51,15 @@ const PlantIdentification = () => {
       })
         .then((response) => {
           if (!response.ok) {
-            throw new Error("Something went wrong");
+            if (response.status === 400) {
+              throw new Error("Bad Request: Invalid data provided");
+            } else if (response.status === 401) {
+              throw new Error("Unauthorized: API key is invalid or missing");
+            } else if (response.status === 429) {
+              throw new Error("Too Many Requests: Rate limit exceeded");
+            } else {
+              throw new Error("Server Error: Unable to process request");
+            }
           }
           return response.json();
         })
@@ -62,9 +70,9 @@ const PlantIdentification = () => {
         .catch((error) => {
           setResults(null);
           setError(error.message || "Something went wrong");
-        });
-    });
-  }, [selectedFiles]);
+        });   
+      });
+    }, [selectedFiles]);
 
   const handleTakePhoto = () => {
     navigator.mediaDevices
