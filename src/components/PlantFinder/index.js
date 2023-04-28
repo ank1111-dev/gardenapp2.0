@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {  Card, CardContent, Box, ButtonBase, Input, Typography, } from "@mui/material";
+import {  Card, CardContent, Box, ButtonBase, Input, Typography, Button } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 
@@ -97,9 +97,14 @@ const PlantIdentification = () => {
         }, "image/jpeg");
       })
       .catch((error) => {
-        console.error("Error accessing camera", error);
         setError(error.message || "Error accessing camera");
       });
+ };
+
+    const handleRetry = () => {
+    setError(null);
+    setResults(null);
+    setSelectedFiles([]);
   };
 
   return (
@@ -164,9 +169,12 @@ const PlantIdentification = () => {
               Take a photo
             </ButtonBase>
             {error && (
-              <Typography variant="h6" sx={{ color: "#eb3911", mt: 4 }}>
-                Error: <span sx={{ color: "#eb3911", mt: 1 }}>{error}</span>
-              </Typography>
+              <>
+                <Typography variant="h6" sx={{ color: "#eb3911", mt: 4 }}>
+                  Error: <span sx={{ color: "#eb3911", mt: 1 }}>{error}</span>
+                </Typography>
+                <Button onClick={handleRetry}>Retry</Button>
+              </>
             )}
           </Box>
 
