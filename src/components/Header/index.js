@@ -1,45 +1,145 @@
-import { Link } from 'react-router-dom';
-import { Box, List, ListItem  } from '@mui/material';
-import { Outlet } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
+import { Box, List, ListItem } from "@mui/material";
+import { Outlet } from "react-router-dom";
 
 const Header = () => {
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: '#ffffff', flexDirection: 'column', fontFamily: 'Arial, Verdana, Sans-serif'   }}>
-      <Box sx={{ flex: '1 1 auto',  width: '100%'}}>
-        <img src= '../image/header.png' alt="" style={{ width: '100%', height: '300px' }}/>
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "linear-gradient(135deg, #9f9428 0%, #83ac7b 100%)",
+        flexDirection: "row",
+        fontFamily: "Helvetica, Arial, sans-serif",
+        ml: "auto",
+      }}
+    >
+      <Box
+        sx={{
+          flex: "1 1 auto",
+          textAlign: "center",
+          padding: "20px 0",
+          justifyContent: "center",
+        }}
+      >
+        <h1
+          style={{
+            margin: 0,
+            fontWeight: "bold",
+            fontSize: "50px",
+            fontFamily: "Helvetica, Arial, sans-serif",
+            textShadow: "1px 1px 2px #000",
+            marginRight: "30px",
+            color: "white",
+          }}
+        >
+          <span style={{ color: "#f5b000" }}>Aussie Garden</span> Wizard
+        </h1>
       </Box>
-      <Box sx={{ flex: '2 1 auto', textAlign: 'center' }}>
-      <h1 style={{ margin: 0, fontWeight: 'bold' , fontSize: '40px'}}>
-          <span style={{ color: '#4CAF50' }}>Aussie Garden </span>
-          <span style={{ color: '#9C27B0' }}>Wizard</span>
-        </h1>      
-      </Box>
-      <Box sx={{ flex: '1 1 auto' }}>
+      <Box
+        sx={{
+          flex: "1 1 auto",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <nav>
-          <List sx={{ display: 'flex', justifyContent: 'center', color: '#b6986d', fontSize: '18px' }}>
-            <ListItem component={Link} to="/" sx={{ '&:hover': { color: '#e59421'} ,  position: 'relative', }} >
-              Home             
-              <span style={{ position: 'absolute', top: 0, left: 1, height: '100%', borderLeft: '2px dotted #b6986d' }}></span> 
+          <List sx={{ display: "flex", justifyContent: "center" }}>
+            <ListItem
+              component={NavLink}
+              to="/"
+              exact
+              activeClassName="active"
+              sx={{
+                "&:hover": { color: "#f5b000" },
+                position: "relative",
+                color: "#fff",
+                marginRight: "2px",
+                fontSize: "18px",
+                textDecoration: "none",
+                "&.active": {
+                  color: "#f5b000",
+                  borderLeft: "2px solid #f5b000",
+                },
+              }}
+            >
+              Home
+              <span
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 4,
+                  height: "100%",
+                  borderLeft: "2px dotted #fff",
+                }}
+              ></span>
             </ListItem>
-            <ListItem component={Link} to="/suggestions" sx={{ '&:hover': { color: '#78c677' },  position: 'relative',}}>
-              GardeningSuggestions
-              <span style={{ position: 'absolute', top: 0, left: 1, height: '100%', borderLeft: '2px dotted #b6986d'}}></span>
-            </ListItem>  
-            <ListItem component={Link} to="/gardening-wizard" sx={{ '&:hover': { color: '#78c677' },  position: 'relative',}}>
-              GardeningWizard
-                <span style={{ position: 'absolute', top: 0, left: 1, height: '100%', borderLeft: '2px dotted #b6986d'}}></span>
-            </ListItem>          
+            <ListItem
+              component={NavLink}
+              to="/suggestions"
+              exact
+              activeClassName="active"
+              sx={{
+                "&:hover": { color: "#f5b000" },
+                position: "relative",
+                color: "#fff",
+                marginRight: "30px",
+                fontSize: "18px",
+                textDecoration: "none",
+                "&.active": {
+                  color: "#f5b000",
+                  borderLeft: "2px solid #f5b000",
+                },
+              }}
+            >
+              Gardening Suggestions
+              <span
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 1,
+                  height: "100%",
+                  borderLeft: "2px dotted #fff",
+                }}
+              ></span>
+            </ListItem>
+            <ListItem
+              component={NavLink}
+              to="/gardening-wizard"
+              exact
+              activeClassName="active"
+              sx={{
+                "&:hover": { color: "#f5b000" },
+                position: "relative",
+                color: "#fff",
+                marginRight: "30px",
+                fontSize: "18px",
+                textDecoration: "none",
+                "&.active": {
+                  color: "#f5b000",
+                  borderLeft: "2px solid #f5b000",
+                }
+              }}
+            >
+              Gardening Wizard
+              <span
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 1,
+                  height: "100%",
+                  borderLeft: "2px dotted #fff",
+                }}
+              ></span>
+            </ListItem>
           </List>
         </nav>
-        <Outlet />
       </Box>
+      <Outlet />
     </Box>
   );
 };
 
 export default Header;
-
-
-
-
-
