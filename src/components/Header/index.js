@@ -50,8 +50,8 @@ const Header = () => {
             <ListItem
               component={NavLink}
               to="/"
-              exact
-              activeClassName="active"
+              exact="true"
+              activeclassname="active"
               sx={{
                 "&:hover": { color: "#f5b000" },
                 position: "relative",
@@ -79,8 +79,8 @@ const Header = () => {
             <ListItem
               component={NavLink}
               to="/suggestions"
-              exact
-              activeClassName="active"
+              exact="true"
+              activeclassname="active"
               sx={{
                 "&:hover": { color: "#f5b000" },
                 position: "relative",
@@ -108,8 +108,8 @@ const Header = () => {
             <ListItem
               component={NavLink}
               to="/gardening-wizard"
-              exact
-              activeClassName="active"
+              exact="true"
+              activeclassname="active"
               sx={{
                 "&:hover": { color: "#f5b000" },
                 position: "relative",
@@ -120,7 +120,7 @@ const Header = () => {
                 "&.active": {
                   color: "#f5b000",
                   borderLeft: "2px solid #f5b000",
-                }
+                },
               }}
             >
               Gardening Wizard
