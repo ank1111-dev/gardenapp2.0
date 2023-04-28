@@ -85,7 +85,7 @@ const WeatherDetails = () => {
             <ArrowBackIcon />
           </IconButton>
           <IconButton
-            onClick={() => navigate(1)}
+            onClick={() => navigate("/gardening-wizard")}
             className="IconButton"
           >
             <ArrowForwardIcon />
