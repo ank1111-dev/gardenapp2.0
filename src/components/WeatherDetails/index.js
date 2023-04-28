@@ -5,7 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { ArrowBack as ArrowBackIcon, ArrowForward as ArrowForwardIcon } from "@mui/icons-material";
 import moment from "moment";
 import "moment-timezone";
-import ClimateZone from "../ClimateZone/index";
+import ClimateZone from "../ClimateZone";
 import "./index.css"
 
 const ErrorMessage = styled("div")({
