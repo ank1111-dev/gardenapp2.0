@@ -1,5 +1,8 @@
 import { Box, Typography, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { createTheme } from "@mui/material/styles";
+
+const theme = createTheme();
 
 const Home = () => {
   
@@ -24,7 +27,9 @@ const Home = () => {
           minHeight: "100vh",
           background: "linear-gradient(135deg, #9f9428 0%, #83ac7b 100%)",
           fontFamily: "Helvetica, Arial, sans-serif",
-          mb: 5,
+          [theme.breakpoints.down("md")]: {
+            padding: "20px",
+          },
         }}
       >
         <Box
@@ -84,7 +89,7 @@ const Home = () => {
               maxWidth: "100%",
               marginTop: "10px",
               borderRadius: "40px",
-              border: "none",
+              border: "none"                           
             }}
           />
         </Box>
