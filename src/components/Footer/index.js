@@ -8,10 +8,15 @@ const FooterBox = styled(Box)(({ theme }) => ({
   justifyContent: "space-between",
   background: "#c7c391",
   padding: "8px",
-  position: "fixed",
+  position: "relative",
   bottom: 0,
   width: "100%",
   zIndex: 100,
+  [theme.breakpoints.down("sm")]: {
+    height: "50px",
+    alignItems: "flex-end",
+    position: "relative",
+  },
 }));
 
 const FooterLink = styled(Link)(({ theme }) => ({
@@ -62,3 +67,5 @@ const Footer = () => {
 };
 
 export default Footer;
+
+
