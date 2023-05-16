@@ -1,6 +1,9 @@
 import { NavLink } from "react-router-dom";
 import { Box, List, ListItem } from "@mui/material";
 import { Outlet } from "react-router-dom";
+import { createTheme } from "@mui/material/styles";
+
+const theme = createTheme();
 
 const Header = () => {
   return (
@@ -13,24 +16,35 @@ const Header = () => {
         flexDirection: "row",
         fontFamily: "Helvetica, Arial, sans-serif",
         ml: "auto",
+        [theme.breakpoints.down("sm")]: {
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: "0 30px",
+          
+        },
       }}
     >
       <Box
         sx={{
           flex: "1 1 auto",
-          textAlign: "center",
-          padding: "20px 0",
-          justifyContent: "center",
+          display: "flex",
+          alignItems: "center",
+         
         }}
       >
+        <img
+          src="../image/logo.png"
+          alt="Aussie Garden Wizard Logo"
+          style={{ height: "80px", margin: "0 10px 0 10px" }}
+        />
         <h1
           style={{
-            margin: 0,
             fontWeight: "bold",
             fontSize: "50px",
             fontFamily: "Helvetica, Arial, sans-serif",
             textShadow: "1px 1px 2px #000",
-            marginRight: "30px",
+            marginRight: "10px",
             color: "white",
           }}
         >
@@ -43,6 +57,9 @@ const Header = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          [theme.breakpoints.down("md")]: {
+            justifyContent: "center",
+          },
         }}
       >
         <nav>
@@ -62,6 +79,10 @@ const Header = () => {
                 "&.active": {
                   color: "#f5b000",
                   borderLeft: "2px solid #f5b000",
+                },
+                [theme.breakpoints.down("md")]: {
+                  marginLeft: "10px",
+                  marginBottom: "10px",
                 },
               }}
             >
@@ -92,6 +113,10 @@ const Header = () => {
                   color: "#f5b000",
                   borderLeft: "2px solid #f5b000",
                 },
+                [theme.breakpoints.down("md")]: {
+                  marginRight: "10px",
+                  marginBottom: "10px",
+                },
               }}
             >
               Gardening Suggestions
@@ -99,7 +124,7 @@ const Header = () => {
                 style={{
                   position: "absolute",
                   top: 0,
-                  left: 1,
+                  left: 4,
                   height: "100%",
                   borderLeft: "2px dotted #fff",
                 }}
@@ -120,6 +145,10 @@ const Header = () => {
                 "&.active": {
                   color: "#f5b000",
                   borderLeft: "2px solid #f5b000",
+                },
+                [theme.breakpoints.down("sm")]: {
+                  marginRight: 0,
+                  marginBottom: "10px",
                 },
               }}
             >
