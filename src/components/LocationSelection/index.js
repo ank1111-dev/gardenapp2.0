@@ -42,7 +42,7 @@ const Location = () => {
     <>
       <div className="header">
         <IconButton
-          onClick={() => navigate(-1)}
+          onClick={() => navigate("/")}
           className="icon-button icon-button-arrow-left"
         >
           <ArrowBackIcon />
