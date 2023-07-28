@@ -1,70 +1,37 @@
-# Getting Started with Create React App
+# Aussie Garden Wizard
+Aussie Garden Wizard is a web application that helps users find suitable plants for their garden based on the weather conditions in their location and the specific climate zone. The app fetches weather details for the user's entered location and determines the climate zone based on the temperature and precipitation data. It then suggests a list of plants that thrive in the identified climate zone (For Australia Only).
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Features
+1. Weather Details: Fetches weather details (temperature, humidity, precipitation, wind speed, etc.) for the entered location using the OpenWeatherMap API.
+2. Climate Zone Determination: Determines the climate zone based on the temperature and precipitation data obtained from the weather details.
+3. Plant Suggestions: Suggests a list of plants that are suitable for the identified climate zone. Each plant displays its name and a brief description.
+4. Plant Details: When clicked on a plant name, the app displays further details of the selected plant, including ideal growing conditions, care tips, and information about pests and diseases.
+5. Error Handling: Provides error messages for invalid location inputs and cases where plants are not available for the identified climate zone.
 
-## Available Scripts
+## Technologies Used
+1. React.js: Front-end library for building user interfaces.
+2. Material-UI v5: UI component library for styling the application.
+3. React Router: For handling routing and navigation within the app.
+4. Canva: For logo and images
 
-In the project directory, you can run:
+## Installation and Setup
+1. Clone the repository: git clone https://github.com/ank1111-dev/gardenapp2.0.git
+2. Navigate to the project directory: cd gardenapp2.0
+3. Install dependencies: npm install 
+4. Obtain an API key from OpenWeatherMap (https://openweathermap.org/) and store it as an environment variable named REACT_APP_WEATHER_API_KEY in a .env file at the root of the project.
+5. Obtain an API key from Plant.id (https://web.plant.id/plant-identification-api/) and store it as an environment variable named REACT_APP_PLANT_API_KEY in a .env file at the root of the project.
+6. Start the development server: npm start
+7. Open the app in your web browser at http://localhost:3000.
 
-### `npm start`
+## Usage
+1. Enter a valid Australian postcode or city name in the search bar to fetch weather details for the location.
+2. The app will display weather information, including temperature, humidity, precipitation, wind speed, and weather conditions.
+3. The app will determine the climate zone based on the weather data and suggest a list of plants suitable for that climate zone.
+4. Click on a plant name to view more details about the selected plant, including its ideal growing conditions, care tips, and information about pests and diseases.
+5.  If there are no plants available for the identified climate zone, the app will display an appropriate error message.
+    
+## Contributing
+Contributions are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## License
+This project is licensed under the MIT License. See the LICENSE.txt file for details.
