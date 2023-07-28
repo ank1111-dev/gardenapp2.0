@@ -1,18 +1,22 @@
 # Aussie Garden Wizard
-Aussie Garden Wizard is a web application that helps users find suitable plants for their garden based on the weather conditions in their location and the specific climate zone. The app fetches weather details for the user's entered location and determines the climate zone based on the temperature and precipitation data. It then suggests a list of plants that thrive in the identified climate zone (For Australia Only).
+Aussie Garden Wizard is a web application that helps users find suitable plants for their garden based on the weather conditions in their location and the specific climate zone. The app fetches weather details for the user's entered location and determines the climate zone based on the temperature and precipitation data. It then suggests a list of plants that thrive in the identified climate zone (For Australia Only). Visit: http://gaassets.s3-website-ap-southeast-2.amazonaws.com/gardening-wizard
 
 ## Features
 1. Weather Details: Fetches weather details (temperature, humidity, precipitation, wind speed, etc.) for the entered location using the OpenWeatherMap API.
 2. Climate Zone Determination: Determines the climate zone based on the temperature and precipitation data obtained from the weather details.
 3. Plant Suggestions: Suggests a list of plants that are suitable for the identified climate zone. Each plant displays its name and a brief description.
 4. Plant Details: When clicked on a plant name, the app displays further details of the selected plant, including ideal growing conditions, care tips, and information about pests and diseases.
-5. Error Handling: Provides error messages for invalid location inputs and cases where plants are not available for the identified climate zone.
+5. Plant Identification: Provides a plant identification feature where users can either upload a photo or take a photo of a plant, and the app uses the Plant.id Plant Identification API (a paid facility) to identify the plant species.
+6. Error Handling: Provides error messages for invalid location inputs and cases where plants are not available for the identified climate zone.
 
 ## Technologies Used
 1. React.js: Front-end library for building user interfaces.
 2. Material-UI v5: UI component library for styling the application.
 3. React Router: For handling routing and navigation within the app.
-4. Canva: For logo and images
+4. Canva: For logo design
+5. GitHub Actions: For Continuous Integration and Deployment (CI/CD)
+6. AWS (Amazon Web Services) - Hosting website using S3 bucket
+7. Moment Timezone (for handling timezones)
 
 ## Installation and Setup
 1. Clone the repository: git clone https://github.com/ank1111-dev/gardenapp2.0.git
